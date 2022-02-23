@@ -1,0 +1,87 @@
+---
+title: "Week 2 Day 4"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(BasketballAnalyzeR)
+```
+
+```{r}
+nba201516PbPShots <- read.csv("nba201516PbPShots.csv")
+nba201011PbPShots <- read.csv("nba201011PbPShots.csv")
+nba200506PbPShots <- read.csv("nba200506PbPShots.csv")
+```
+
+```{r}
+nba201516PbPShots <- PbPmanipulation(nba201516PbPShots)
+nba201011PbPShots <- PbPmanipulation(nba201011PbPShots)
+nba200506PbPShots <- PbPmanipulation(nba200506PbPShots)
+```
+
+```{r}
+nba201516PbPShots %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> nba201516PbPShots
+nba201011PbPShots %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> nba201011PbPShots
+nba200506PbPShots %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> nba200506PbPShots
+```
+
+```{r}
+jamesHarden <- nba201516PbPShots %>% filter(player == "James Harden")
+anthonyDavis <- nba201516PbPShots %>% filter(player == "Anthony Davis")
+lebronJames <- nba201516PbPShots %>% filter(player == "LeBron James")
+stephCurry <- nba201516PbPShots %>% filter(player == "Stephen Curry")
+demarcusCousins <- nba201516PbPShots %>% filter(player == "DeMarcus Cousins")
+
+mia2015 <- nba201516PbPShots %>% filter(team == "DEN")
+lal2015 <- nba201516PbPShots %>% filter(team == "LAL")
+gsw2015 <- nba201516PbPShots %>% filter(team == "GSW")
+
+
+mia2010 <- nba201011PbPShots %>% filter(team == "DEN")
+lal2010 <- nba201011PbPShots %>% filter(team == "LAL")
+gsw2010 <- nba201011PbPShots %>% filter(team == "GSW")
+
+mia2005 <- nba200506PbPShots %>% filter(team == "DEN")
+lal2005 <- nba200506PbPShots %>% filter(team == "LAL")
+gsw2005 <- nba200506PbPShots %>% filter(team == "GSW")
+```
+
+
+```{r}
+```
+
+```{r}
+shotchart(data = jamesHarden, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+```{r}
+shotchart(data = stephCurry, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+```{r}
+shotchart(data = anthonyDavis, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+```{r}
+shotchart(data = lebronJames, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+```{r}
+shotchart(data = demarcusCousins, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+
+```{r}
+shotchart(data = mia2005, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = mia2010, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = mia2015, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+
+```{r}
+shotchart(data = gsw2005, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = gsw2010, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = gsw2015, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+
+```{r}
+shotchart(data = lal2005, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = lal2010, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = lal2015, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+

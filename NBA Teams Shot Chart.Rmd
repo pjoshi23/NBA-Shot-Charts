@@ -1,0 +1,21 @@
+---
+title: "NBA Teams"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(BasketballAnalyzeR)
+```
+```
+
+```{r}
+nba201516PbPShots <- read.csv("nba201516PbPShots.csv")
+```
+
+```{r}
+nba201516PbPShots <- PbPmanipulation(nba201516PbPShots)
+```
+
+```{r}
+nba201516PbPShots %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> nba201516PbPShots

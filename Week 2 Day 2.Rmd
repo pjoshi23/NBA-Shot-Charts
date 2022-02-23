@@ -1,0 +1,49 @@
+---
+title: "Week 2 Day 2"
+output: html_document
+---
+
+```{r}
+
+library(tidyverse)
+
+```
+
+
+
+```{r}
+
+nba_teams <- read_csv("teamMisc(4).csv")
+
+```
+```{r}
+
+teams <- c("DEN", "LAL")
+
+den_lal <- nba_teams %>% filter(Tm %in% teams & Year > 2016) %>% 
+  select(Tm, Year, OeFGPerc, OTOVPerc, ORBPerc, OFTPerFGA, DeFGPerc, DTOVPerc, DRBPerc, DFTPerFGA)
+
+```
+
+
+```{r}
+
+den_lal_avg <- den_lal %>% group_by(Tm) %>%
+  summarize(OeFG = mean(OeFGPerc),
+            OTOV = mean(OTOVPerc), 
+            ORB = mean(ORBPerc), 
+            OFTr = mean(OFTPerFGA), 
+            DeFG = mean(DeFGPerc), 
+            DTOV = mean(DTOVPerc), 
+            DRB = mean(DRBPerc), 
+            DFTr = mean(DFTPerFGA))
+
+```
+
+
+```{r}
+
+write_csv(den_lal_avg, "den_lal_avg.csv")
+
+```
+

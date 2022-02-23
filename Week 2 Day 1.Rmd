@@ -1,0 +1,44 @@
+---
+title: "Week 2 Day 1"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+nba_stats <- read_csv("Berlin Academy - NBA Activity Data - Sheet1.csv")
+```
+
+
+
+```{r}
+
+nba_stats[5:30] <- sapply(nba_stats[5:30], as.numeric)
+```
+
+
+
+
+```{r}
+#FGA + 0.44 * FTA = tsa
+
+nba_stats <- nba_stats %>% mutate(TSA = nba_stats$FGA + (0.44 * nba_stats$FTA))
+
+```
+
+```{r}
+
+nba_stats <- nba_stats %>% mutate(TS_pct = nba_stats$PTS / (2 * nba_stats$TSA))
+
+```
+
+```{r}
+
+nba_stats <- nba_stats %>% mutate(TOV_pct = nba_stats$TOV / (nba_stats$FGA + 0.44 * nba_stats$FTA + nba_stats$TOV))
+
+```
+
+```{r}
+write_csv(nba_stats, "NBA_Advanced_Stats.csv")
+```
+
+

@@ -1,0 +1,84 @@
+---
+title: "NBA Teams Shot Chart"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+```{r}
+library(tidyverse)
+library(BasketballAnalyzeR)
+```
+
+```{r}
+nba201516PbPShots <- read.csv("Desktop/Berlin Academy/nba201516PbPShots.csv")
+nba201011PbPShots <- read.csv("Desktop/Berlin Academy/nba201011PbPShots.csv")
+nba200506PbPShots <- read.csv("Desktop/Berlin Academy/nba200506PbPShots.csv")
+```
+
+```{r}
+nba201516PbPShots <- PbPmanipulation(nba201516PbPShots)
+nba201011PbPShots <- PbPmanipulation(nba201011PbPShots)
+nba200506PbPShots <- PbPmanipulation(nba200506PbPShots)
+
+nba201516PbPShots %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> nba201516PbPShots
+nba201011PbPShots %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> nba201516PbPShots
+nba200506PbPShots %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> nba201516PbPShots
+```
+
+```{r}
+mia2015 <- nba201516PbPShots %>% filter(team == "DEN")
+lal2015 <- nba201516PbPShots %>% filter(team == "LAL")
+gsw2015 <- nba201516PbPShots %>% filter(player == "GSW")
+
+
+mia2010 <- nba201011PbPShots %>% filter(team == "DEN")
+lal2010 <- nba201011PbPShots %>% filter(team == "LAL")
+gsw2010 <- nba201011PbPShots %>% filter(player == "GSW")
+
+mia2005 <- nba200506PbPShots %>% filter(team == "DEN")
+lal2005 <- nba200506PbPShots %>% filter(team == "LAL")
+gsw2005 <- nba200506PbPShots %>% filter(player == "GSW")
+```
+
+```{r}
+shotchart(data = mia2005, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = mia2010, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = mia2015, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+
+```{r}
+shotchart(data = lal2005, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = lal2010, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = lal2015, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+
+```{r}
+shotchart(data = gsw2005, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = gsw2010, x = "xx", y = "yy", z = "points", scatter = TRUE)
+shotchart(data = gsw2015, x = "xx", y = "yy", z = "points", scatter = TRUE)
+```
+
